@@ -153,7 +153,7 @@
 
         <button type="button"
                 name="btnPrintInvoice"
-                onclick="window.print()">
+                onclick="window.print(); alert('In hóa đơn thành công');">
             In hóa đơn
         </button>
     </div>
