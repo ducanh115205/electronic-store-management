@@ -25,11 +25,11 @@
         return;
     }
 
-    Order3[] orders = new Order3[0];
+    Order3[] listPendingOrders = new Order3[0];
     String errorMessage = null;
 
     try (Order3DAO orderDAO = new Order3DAO()) {
-        orders = orderDAO.getPendingOrders("Chưa xuất");
+        listPendingOrders = orderDAO.getPendingOrders("Chưa xuất");
     } catch (Exception e) {
         log("Lỗi tải danh sách đơn hàng", e);
         errorMessage = "Không thể tải danh sách đơn hàng.";
@@ -65,19 +65,19 @@
 <body>
 <div class="container">
 
-    <h2>Đơn hàng chờ duyệt và xuất kho</h2>
+    <h2 id="lblPendingOrders">Đơn hàng chờ duyệt và xuất kho</h2>
 
     <% if (errorMessage != null) { %>
 
         <p class="error"><%= html(errorMessage) %></p>
 
-    <% } else if (orders.length == 0) { %>
+    <% } else if (listPendingOrders.length == 0) { %>
 
         <p>Không có đơn hàng cần xử lý.</p>
 
     <% } else { %>
 
-        <table>
+        <table id="tblPendingOrders">
             <thead>
             <tr>
                 <th>TT</th>
@@ -91,8 +91,8 @@
             </thead>
 
             <tbody>
-            <% for (int i = 0; i < orders.length; i++) {
-                Order3 order = orders[i];
+            <% for (int i = 0; i < listPendingOrders.length; i++) {
+                Order3 order = listPendingOrders[i];
             %>
                 <tr>
                     <td><%= i + 1 %></td>

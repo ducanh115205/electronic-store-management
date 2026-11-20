@@ -50,7 +50,7 @@
 <body>
 
 <div class="container">
-    <h2>Trang chủ nhân viên kho</h2>
+    <h2 id="lblWarehouseStaffHome">Trang chủ nhân viên kho</h2>
     <hr>
 
     <form action="pendingOrderList.jsp" method="get">

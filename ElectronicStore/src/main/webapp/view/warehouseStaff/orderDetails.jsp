@@ -32,7 +32,7 @@
 
     int orderId = 0;
     Order3 order = null;
-    DeliveryStaff3[] staffList = new DeliveryStaff3[0];
+    DeliveryStaff3[] listDeliveryStaff = new DeliveryStaff3[0];
     String errorMessage = null;
 
     try {
@@ -42,7 +42,7 @@
              DeliveryStaff3DAO deliveryDAO = new DeliveryStaff3DAO()) {
 
             order = orderDAO.getOrderDetails(orderId);
-            staffList = deliveryDAO.getDeliveryStaffList();
+            listDeliveryStaff = deliveryDAO.getDeliveryStaffList();
         }
 
         if (order == null) {
@@ -182,7 +182,7 @@
 
         <div class="info-row">
 
-            <div class="info-box">
+            <div id="divOrderInfo" class="info-box">
                 <strong>Thông tin đơn hàng</strong>
 
                 <p>
@@ -200,7 +200,7 @@
                 </p>
             </div>
 
-            <div class="info-box">
+            <div id="divCustomerInfo" class="info-box">
                 <strong>Thông tin nhận hàng</strong>
 
                 <p>
@@ -223,7 +223,7 @@
 
         <h3>Danh sách mặt hàng</h3>
 
-        <table>
+        <table id="tblOrderDetails">
             <thead>
             <tr>
                 <th>TT</th>
@@ -237,10 +237,10 @@
 
             <tbody>
             <%
-                OrderDetail3[] details = order.getDetails();
+                OrderDetail3[] listOrderDetails = order.getDetails();
 
-                for (int i = 0; i < details.length; i++) {
-                    OrderDetail3 detail = details[i];
+                for (int i = 0; i < listOrderDetails.length; i++) {
+                    OrderDetail3 detail = listOrderDetails[i];
             %>
 
                 <tr>
@@ -279,7 +279,7 @@
             <%= money.format(order.getTotalAmount()) %> đồng
         </p>
 
-        <h3>Danh sách nhân viên giao hàng</h3>
+        <h3 id="lblSelectDeliveryStaff">Danh sách nhân viên giao hàng</h3>
 
         <form action="doApproveAndDispatch.jsp" method="post">
 
@@ -292,13 +292,13 @@
                    name="deliveryStaffId"
                    value="">
 
-            <% if (staffList.length == 0) { %>
+            <% if (listDeliveryStaff.length == 0) { %>
 
                 <p>Không có nhân viên giao hàng.</p>
 
             <% } else { %>
 
-                <table>
+                <table id="tblDeliveryStaff">
                     <thead>
                     <tr>
                         <th>TT</th>
@@ -311,8 +311,8 @@
 
                     <tbody>
                     <%
-                        for (int i = 0; i < staffList.length; i++) {
-                            DeliveryStaff3 deliveryStaff = staffList[i];
+                        for (int i = 0; i < listDeliveryStaff.length; i++) {
+                            DeliveryStaff3 deliveryStaff = listDeliveryStaff[i];
                     %>
 
                         <tr>
@@ -365,7 +365,7 @@
             <button
                 type="submit"
                 name="btnApproveAndDispatch"
-                <%= staffList.length == 0 ? "disabled" : "" %>>
+                <%= listDeliveryStaff.length == 0 ? "disabled" : "" %>>
                 Xác nhận duyệt và xuất kho
             </button>
 

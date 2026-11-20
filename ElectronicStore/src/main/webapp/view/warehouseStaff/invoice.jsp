@@ -69,12 +69,17 @@
 <body>
 <div class="container">
 
-    <h2>Hóa đơn bán hàng - HD<%= String.format("%02d", invoice.getId()) %></h2>
+    <h2 id="lblInvoiceTitle">
+        Hóa đơn bán hàng - HD<%= String.format("%02d", invoice.getId()) %>
+    </h2>
 
-    <p>Siêu thị điện máy</p>
-    <p>Ngày lập: <%= dateFormat.format(invoice.getCreatedDate()) %></p>
+    <p id="lblStoreInfo">Siêu thị điện máy</p>
 
-    <table>
+    <p id="lblInvoiceDate">
+        Ngày lập: <%= dateFormat.format(invoice.getCreatedDate()) %>
+    </p>
+
+    <table id="tblInvoiceInfo">
         <tbody>
         <tr>
             <th>Mã đơn hàng</th>
@@ -97,7 +102,7 @@
 
     <h3>Danh sách mặt hàng</h3>
 
-    <table>
+    <table id="tblInvoiceDetails">
         <thead>
         <tr>
             <th>TT</th>
@@ -111,10 +116,10 @@
 
         <tbody>
         <%
-            InvoiceDetail3[] details = invoice.getDetails();
+            InvoiceDetail3[] invoiceDetails = invoice.getDetails();
 
-            for (int i = 0; i < details.length; i++) {
-                InvoiceDetail3 detail = details[i];
+            for (int i = 0; i < invoiceDetails.length; i++) {
+                InvoiceDetail3 detail = invoiceDetails[i];
         %>
             <tr>
                 <td><%= i + 1 %></td>
@@ -134,7 +139,7 @@
         </tbody>
     </table>
 
-    <p>
+    <p id="lblTotalAmount">
         <strong>Tổng thanh toán:</strong>
         <%= money.format(invoice.getTotalAmount()) %> đồng
     </p>
