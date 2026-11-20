@@ -12,6 +12,7 @@ import java.util.Properties;
 
 public class DAO implements AutoCloseable {
     protected Connection con;
+    private boolean ownsConnection = true;
 
     public DAO() throws SQLException {
         Properties properties = new Properties();
@@ -46,10 +47,18 @@ public class DAO implements AutoCloseable {
 
         con = DriverManager.getConnection(url, user, password);
     }
+    protected DAO(Connection connection) {
+        this.con = connection;
+        this.ownsConnection = false;
+    }
 
+    public Connection getConnection() {
+        return con;
+    }
+ 
     @Override
     public void close() throws SQLException {
-        if (con != null && !con.isClosed()) {
+        if (ownsConnection && con != null && !con.isClosed()) {
             con.close();
         }
     }

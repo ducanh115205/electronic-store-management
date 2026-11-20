@@ -1,7 +1,8 @@
 package dao;
 
 import model.Product3;
-
+import model.OrderDetail3;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,10 @@ public class Product3DAO extends DAO {
     public Product3DAO() throws SQLException {
         super();
     }
-
+    
+    public Product3DAO(Connection connection) {
+        super(connection);
+    }
     public Product3[] getProductsByName(String productName)
             throws SQLException {
 
@@ -81,5 +85,35 @@ public class Product3DAO extends DAO {
         product.setWarrantyMonths(result.wasNull() ? null : warranty);
 
         return product;
+    }
+    
+    public boolean updateStock(OrderDetail3[] orderDetails)
+        throws SQLException {
+
+        if (orderDetails == null || orderDetails.length == 0) {
+            return false;
+        }
+
+        String sql = "UPDATE tblProduct3 "
+                + "SET stockQuantity = stockQuantity - ? "
+                + "WHERE id = ? AND stockQuantity >= ?";
+
+        try (PreparedStatement statement = con.prepareStatement(sql)) {
+            for (OrderDetail3 detail : orderDetails) {
+                if (detail.getProduct() == null || detail.getQuantity() <= 0) {
+                    return false;
+                }
+
+                statement.setInt(1, detail.getQuantity());
+                statement.setInt(2, detail.getProduct().getId());
+                statement.setInt(3, detail.getQuantity());
+
+                if (statement.executeUpdate() != 1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }
