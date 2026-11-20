@@ -23,7 +23,7 @@
                     request.changeSessionId();
                     session.setAttribute("warehouseStaffId", staffId);
 
-                    response.sendRedirect("warehouseStaffHome.jsp");
+                    response.sendRedirect("view/warehouseStaff/warehouseStaffHome.jsp");
                     return;
                 }
 

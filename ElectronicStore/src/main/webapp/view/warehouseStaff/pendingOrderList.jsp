@@ -21,7 +21,7 @@
     Integer staffId = (Integer) session.getAttribute("warehouseStaffId");
 
     if (staffId == null) {
-        response.sendRedirect("warehouseStaffLogin.jsp");
+        response.sendRedirect("../../warehouseStaffLogin.jsp");
         return;
     }
 

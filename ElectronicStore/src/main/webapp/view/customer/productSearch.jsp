@@ -24,12 +24,12 @@
 <body>
 
 <div class="container">
-    <h1 class="store-name">Siêu thị điện máy</h1>
+    <h1 id="lblStoreName" class="store-name">Siêu thị điện máy</h1>
     <hr>
 
     <div class="search-form">
         <form action="productSearchResult.jsp" method="get">
-            <label for="txtProductName">Tìm kiếm mặt hàng:</label>
+            <label id="lblSearchProduct" for="txtProductName">Tìm kiếm mặt hàng:</label>
             <br><br>
 
             <input

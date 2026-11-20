@@ -81,8 +81,7 @@ public class Product3DAO extends DAO {
         product.setSellingPrice(result.getDouble("sellingPrice"));
         product.setStockQuantity(result.getInt("stockQuantity"));
 
-        int warranty = result.getInt("warrantyMonths");
-        product.setWarrantyMonths(result.wasNull() ? null : warranty);
+        product.setWarrantyMonths(result.getInt("warrantyMonths"));
 
         return product;
     }

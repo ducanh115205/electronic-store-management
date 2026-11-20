@@ -31,11 +31,11 @@
 
     productName = productName.trim();
 
-    Product3[] products = new Product3[0];
+    Product3[] lstSearchResults = new Product3[0];
     String errorMessage = null;
 
     try (Product3DAO productDAO = new Product3DAO()) {
-        products = productDAO.getProductsByName(productName);
+        lstSearchResults = productDAO.getProductsByName(productName);
     } catch (Exception e) {
         log("Lỗi tìm kiếm mặt hàng", e);
         errorMessage = "Không thể tải danh sách mặt hàng. Vui lòng thử lại.";
@@ -77,11 +77,11 @@
 <body>
 
 <div class="container">
-    <h1 class="store-name">Siêu thị điện máy</h1>
+    <h1 id="lblStoreName" class="store-name">Siêu thị điện máy</h1>
     <hr>
 
     <form action="productSearchResult.jsp" method="get">
-        <label for="txtProductName">Tìm kiếm mặt hàng:</label>
+        <label id="lblSearchProduct" for="txtProductName">Tìm kiếm mặt hàng:</label>
         <br><br>
 
         <input
@@ -96,11 +96,11 @@
 
     <% if (errorMessage != null) { %>
         <p class="error"><%= html(errorMessage) %></p>
-    <% } else if (products.length == 0) { %>
+    <% } else if (lstSearchResults.length == 0) { %>
         <p>Không tìm thấy mặt hàng phù hợp</p>
     <% } else { %>
 
-        <table>
+        <table id="tblSearchResults">
             <thead>
             <tr>
                 <th>Ảnh</th>
@@ -114,12 +114,12 @@
             </thead>
 
             <tbody>
-            <% for (Product3 product : products) { %>
+            <% for (Product3 product : lstSearchResults) { %>
                 <tr>
                     <td>
                         <% if (product.getImage() != null
                                 && !product.getImage().isEmpty()) { %>
-                            <img class="product-image"
+                            <img class="product-image imgProduct"
                                  src="<%= html(product.getImage()) %>"
                                  alt="<%= html(product.getName()) %>">
                         <% } else { %>
@@ -134,7 +134,7 @@
                     <td><%= money.format(product.getSellingPrice()) %> đồng</td>
 
                     <td>
-                        <a href="productDetails.jsp?productId=<%= product.getId() %>&amp;productName=<%= encodedName %>">
+                        <a class="lnkViewDetails" href="productDetails.jsp?productId=<%= product.getId() %>&amp;productName=<%= encodedName %>">
                             Xem chi tiết
                         </a>
                     </td>

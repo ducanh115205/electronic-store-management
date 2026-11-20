@@ -11,7 +11,7 @@ public class Product3 {
     private String unit;
     private double sellingPrice;
     private int stockQuantity;
-    private Integer warrantyMonths;
+    private int warrantyMonths;
 
     public Product3() {
     }
@@ -96,11 +96,11 @@ public class Product3 {
         this.stockQuantity = stockQuantity;
     }
 
-    public Integer getWarrantyMonths() {
+    public int getWarrantyMonths() {
         return warrantyMonths;
     }
 
-    public void setWarrantyMonths(Integer warrantyMonths) {
+    public void setWarrantyMonths(int warrantyMonths) {
         this.warrantyMonths = warrantyMonths;
     }
 }
